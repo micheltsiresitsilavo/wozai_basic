@@ -2,26 +2,26 @@
 
 import { useChat } from "ai/react";
 import { useState } from "react";
-import robot from "../ui/chatbot.png";
 import Image from "next/image";
+import ScaleLoader from "react-spinners/ScaleLoader";
+import robot from "../ui/chatbot.png";
+
 export default function Chat() {
   const [chaty, setChaty] = useState(false);
+  const { messages, input, handleInputChange, handleSubmit, isLoading } =
+    useChat();
 
-  const { messages, input, handleInputChange, handleSubmit } = useChat();
-
-  let pushDownBtn =
-    "cursor-pointer md:hidden block absolute -top-10 -right-1 z-10 text-slate-100 bg-gray-700 border-2 border-slate-200 rounded-full px-2 py-2";
-  let pushDownDefault =
-    "cursor-pointer md:hidden block absolute -top-6 -right-1 z-10 text-slate-100 bg-gray-700 border-2 border-blue-500 rounded-full px-2 py-2";
-
-  console.log("message", messages);
+  // let pushDownBtn =
+  //   "cursor-pointer md:hidden block absolute -top-10 -right-1 z-10 text-slate-100 bg-gray-700 border-2 border-slate-200 rounded-full px-2 py-2";
+  // let pushDownDefault =
+  //   "cursor-pointer md:hidden block absolute -top-6 -right-1 z-10 text-slate-100 bg-gray-700 border-2 border-blue-500 rounded-full px-2 py-2";
 
   return (
     <div>
       <div className="px-2 md:px-8 py-4">
         <p className="text-slate-100 font-semibold sm:text-xl text-lg ">Chat</p>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 px-2 md:px-9">
+      <div className="grid grid-cols-1 md:grid-cols-2 px-2 md:px-9 ">
         <div className="order-last ">
           {messages.length ? (
             messages.map((m) => (
@@ -92,7 +92,19 @@ export default function Chat() {
             onSubmit={handleSubmit}
             className="fixed bottom-0   w-full pr-2"
           >
-            <div className="mr-2 relative">
+            <div className="mb-10">
+              <ScaleLoader
+                color="tomato"
+                loading={isLoading}
+                height={20}
+                width={3}
+                radius={0}
+                aria-label="Loading Spinner"
+                data-testid="loader"
+              />
+            </div>
+
+            <div className="mr-2 relative  md:max-w-md ">
               <input
                 type="text"
                 id="Search"
@@ -102,12 +114,64 @@ export default function Chat() {
                 hidden={chaty}
                 className=" rounded-md w-full md:max-w-md  px-4 py-2.5 mb-4 pe-10 shadow-sm sm:text-sm  text-gray-800 font-medium border-2 border-blue-500"
               />
+              {isLoading ? (
+                <div className="absolute top-3 right-3 hidden sm:block">
+                  <ScaleLoader
+                    color="tomato"
+                    loading={isLoading}
+                    height={20}
+                    width={3}
+                    radius={0}
+                    aria-label="Loading Spinner"
+                    data-testid="loader"
+                  />
+                </div>
+              ) : (
+                ""
+              )}
               {messages.length ? (
                 <button
                   onClick={() => setChaty(!chaty)}
-                  className={chaty ? pushDownBtn : pushDownDefault}
+                  className="cursor-pointer md:block hidden absolute -top-10 left-0 z-10 text-slate-100 bg-gray-700 border-2 border-slate-200 rounded-full px-2 py-2"
                 >
-                  {chaty ? openInputIcon : closeInputIcon}
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="w-4 h-4"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                    <path d="M13 8H7" />
+                    <path d="M17 12H7" />
+                  </svg>
+                </button>
+              ) : (
+                ""
+              )}
+
+              {messages.length ? (
+                <button
+                  onClick={() => setChaty(!chaty)}
+                  className="cursor-pointer md:hidden block absolute -top-10 -right-1 z-10 text-slate-100 bg-gray-700 border-2 border-slate-200 rounded-full px-2 py-2"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="w-4 h-4"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                    <path d="M13 8H7" />
+                    <path d="M17 12H7" />
+                  </svg>
                 </button>
               ) : (
                 ""
@@ -119,38 +183,3 @@ export default function Chat() {
     </div>
   );
 }
-
-const openInputIcon = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    className="w-4 h-4"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    stroke-width="2"
-    stroke-linecap="round"
-    stroke-linejoin="round"
-  >
-    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-    <path d="M13 8H7" />
-    <path d="M17 12H7" />
-  </svg>
-);
-
-const closeInputIcon = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    className="w-4 h-4"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    stroke-width="2"
-    stroke-linecap="round"
-    stroke-linejoin="round"
-  >
-    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-    <path d="M8 10h.01" />
-    <path d="M12 10h.01" />
-    <path d="M16 10h.01" />
-  </svg>
-);

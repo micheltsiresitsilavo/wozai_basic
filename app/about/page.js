@@ -48,10 +48,29 @@ const About = () => {
           React.js no specialitéko, zaho tsy mahavoa Python loatra (aleo
           tsorina) fa nefa miezaka ihany. Nanome tosika ahy ilay framework ny
           React atao hoe Next.js, nanome karazana interface hoahy nahafahako
-          mampiasa OpenAI. gpt-3.5-turbo no model ampisaiko aminy ary ny resaka
-          http Stream no manodidina ny famohana ny response avoakany avy any.
-          Tsy maintsy http stream io no miasa satria ila messages avy any dia en
-          streaming.
+          mampiasa{" "}
+          <a
+            href="https://huggingface.co/"
+            className="text-blue-500 font-medium"
+          >
+            Hungging Face
+          </a>
+          .{" "}
+          <a
+            href="https://huggingface.co/OpenAssistant/oasst-sft-4-pythia-12b-epoch-3.5"
+            className="text-orange-500 font-medium"
+          >
+            OpenAssistant/oasst-sft-4-pythia-12b-epoch-3.5
+          </a>{" "}
+          no model ampisaiko aminy ary ny resaka{" "}
+          <a
+            href="https://www.pubnub.com/guides/http-streaming/"
+            className="text-green-400 font-medium"
+          >
+            Http Stream
+          </a>{" "}
+          no manodidina ny famohana ny response avoakany avy any. Tsy maintsy
+          Http stream io no miasa satria ilay messages avy any dia en streaming.
         </p>
       </div>
       <div>

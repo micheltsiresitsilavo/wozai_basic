@@ -1,6 +1,7 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Link from "next/link";
+import NextTopLoader from "nextjs-toploader";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
@@ -56,6 +57,7 @@ export default function RootLayout({ children }) {
             </a>
           </div>
         </header>
+        <NextTopLoader showSpinner={false} />
         {children}
       </body>
     </html>
