@@ -18,19 +18,24 @@ export async function POST(req) {
   // Extract the `messages` from the body of the request
   const { messages } = await req.json();
 
-  const response = openai.textGenerationStream({
+  // const response = openai.textGenerationStream({
+  //   model: openai('gpt-3.5-turbo'),
+  //   inputs: experimental_buildOpenAssistantPrompt(messages),
+  //   parameters: {
+  //     max_new_tokens: 200,
+  //     // @ts-ignore (this is a valid parameter specifically in OpenAssistant models)
+  //     typical_p: 0.2,
+  //     repetition_penalty: 1,
+  //     truncate: 1000,
+  //     return_full_text: false,
+  //   },
+  // });
+  const response = openai.createChatCompletion({
     model: openai('gpt-3.5-turbo'),
-    inputs: experimental_buildOpenAssistantPrompt(messages),
-    parameters: {
-      max_new_tokens: 200,
-      // @ts-ignore (this is a valid parameter specifically in OpenAssistant models)
-      typical_p: 0.2,
-      repetition_penalty: 1,
-      truncate: 1000,
-      return_full_text: false,
-    },
+    stream: true,
+   messages,
+  
   });
-
   // Convert the response into a friendly text-stream
   const stream = OpenAIStream(response);
 
