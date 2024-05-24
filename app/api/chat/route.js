@@ -17,7 +17,7 @@ export const runtime = "edge";
 export async function POST(req) {
   // Extract the `messages` from the body of the request
   const { messages } = await req.json();
-
+console.log("MESSAGES: ", messages)
   // const response = openai.textGenerationStream({
   //   model: openai('gpt-3.5-turbo'),
   //   inputs: experimental_buildOpenAssistantPrompt(messages),
