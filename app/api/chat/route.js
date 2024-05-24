@@ -5,7 +5,7 @@ import { experimental_buildOpenAssistantPrompt } from "ai/prompts";
 
 // Create a new HuggingFace Inference instance
 // const Hf = new HfInference(process.env.HUGGINGFACE_API_KEY);
-
+console.log(process.env.OPENAI_API_KEY)
 // Create an OpenAI API client (that's edge friendly!)
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
