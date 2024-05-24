@@ -1,11 +1,11 @@
 // import { HfInference } from "@huggingface/inference";
 import OpenAI from "openai";
-import { HuggingFaceStream,OpenAIStream, StreamingTextResponse } from "ai";
-import { experimental_buildOpenAssistantPrompt } from "ai/prompts";
+import { HuggingFaceStream, OpenAIStream, StreamingTextResponse } from "ai";
+// import { experimental_buildOpenAssistantPrompt } from "ai/prompts";
 
 // Create a new HuggingFace Inference instance
 // const Hf = new HfInference(process.env.HUGGINGFACE_API_KEY);
-console.log(process.env.OPENAI_API_KEY)
+console.log(process.env.OPENAI_API_KEY);
 // Create an OpenAI API client (that's edge friendly!)
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -17,7 +17,7 @@ export const runtime = "edge";
 export async function POST(req) {
   // Extract the `messages` from the body of the request
   const { messages } = await req.json();
-console.log("MESSAGES: ", messages)
+  console.log("MESSAGES: ", messages);
   // const response = openai.textGenerationStream({
   //   model: openai('gpt-3.5-turbo'),
   //   inputs: experimental_buildOpenAssistantPrompt(messages),
@@ -30,11 +30,10 @@ console.log("MESSAGES: ", messages)
   //     return_full_text: false,
   //   },
   // });
-  const response = openai.createChatCompletion({
-    model: openai('gpt-3.5-turbo'),
+  const response = await openai.chat.completions.create({
+    model: "gpt-3.5-turbo",
     stream: true,
-   messages,
-  
+    messages: messages,
   });
   // Convert the response into a friendly text-stream
   const stream = OpenAIStream(response);
